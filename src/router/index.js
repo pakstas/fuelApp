@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import ViewCars from "../views/ViewCars.vue";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
@@ -9,8 +9,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "View Cars",
+    component: ViewCars,
     meta: {
       requiresAuth: true,
     },
