@@ -5,7 +5,12 @@
         <img src="../assets/img/Fuel_Logo.png" alt="Company logo" />
 
         <nav>
-          <span>
+          <span v-if="userAuth">
+            <router-link to="/addcar">Add Car</router-link>
+            <router-link to="/">View Cars</router-link>
+            <a v-on:click="signOut()">Sign Out {{ "(" + email + ")" }}</a>
+          </span>
+          <span v-else>
             <router-link to="/register">Register</router-link>
             <router-link to="/login">Login</router-link>
           </span>
@@ -19,11 +24,39 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 /* eslint-disable */
 export default {
   name: "Header",
-  props: {
-    msg: String,
+  data() {
+    return {
+      userAuth: "",
+      email: "",
+      uid: "",
+    };
+  },
+  methods: {
+    signOut() {
+      firebase.auth().signOut();
+      this.$router.push("/login");
+      this.userAuth = false;
+      localStorage.removeItem("userid");
+      this.uid = "";
+    },
+  },
+  beforeMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.userAuth = true;
+        this.email = firebase.auth().currentUser.email;
+        this.uid = firebase.auth().currentUser.uid;
+        localStorage.setItem("userid", this.uid);
+      } else {
+        this.userAuth = false;
+        localStorage.removeItem("userid");
+      }
+    });
   },
 };
 </script>
