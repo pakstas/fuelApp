@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="columns is-multiline" v-if="cars.length !== 0">
+    <div class="page-title">
+      <h1 class="title">> {{ this.$route.name }}</h1>
+    </div>
+    <div class="columns is-multiline cars-page" v-if="cars.length !== 0">
       <div
         class="column is-one-third-desktop is-half-tablet"
         v-for="car in cars"
@@ -103,6 +106,25 @@ export default {
 </script>
 
 <style scoped>
+.page-title {
+  height: 200px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  /* background-color: rgba(147, 224, 243, 1); */
+}
+.cars-page {
+  /* background-color: rgba(255, 255, 255, 0.75); */
+  min-height: calc(100vh - 309px);
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: bolder;
+  text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .columns {
   justify-content: space-evenly;
   margin: 0px;
