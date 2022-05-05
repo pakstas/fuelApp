@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="gas in allfuelSort" :key="gas.id">
-                    <td>{{ gas.date }}</td>
+                    <td>{{ translateDate(gas.date) }}</td>
                     <td>{{ gas.odometer + " km" }}</td>
                     <td>{{ gas.fuelqty + " ltr" }}</td>
                     <td>{{ gas.price + " &euro;" }}</td>
@@ -114,8 +114,10 @@ export default {
       fuelDisplay: false,
     };
   },
-  computed: {},
   methods: {
+    translateDate(item) {
+      return item.slice(0, 4) + "-" + item.slice(4, 6) + "-" + item.slice(6, 8);
+    },
     fuelAvg() {
       let s = this.allfuelSort;
       let sl = s.filter((t) => t.tank === "full").length;

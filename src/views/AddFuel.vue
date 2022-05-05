@@ -14,15 +14,20 @@
                 class="input"
                 type="text"
                 v-model="date"
-                placeholder="e.g. 202205051515"
+                placeholder="e.g. 2022-05-05"
                 minlength="12"
                 maxlength="12"
+                disabled
                 required
               />
             </div>
             <p class="help">
               Last date:
-              {{ lastlog.length !== 0 ? lastlog[0].date : "No records yet" }}
+              {{
+                lastlog.length !== 0
+                  ? translateDate(lastlog[0].date)
+                  : "No records yet"
+              }}
             </p>
           </div>
 
@@ -126,12 +131,33 @@ export default {
       price: "",
       tank: "",
       lastlog: [],
-      datetime: "",
-      today: "",
     };
   },
-  computed: {},
   methods: {
+    translateDate(item) {
+      return item.slice(0, 4) + "-" + item.slice(4, 6) + "-" + item.slice(6, 8);
+    },
+    todayDate() {
+      let a = new Date();
+      let year = a.getFullYear().toString();
+      let month =
+        a.getMonth().toString().length === 1
+          ? "0" + a.getMonth().toString()
+          : a.getMonth().toString();
+      let day =
+        a.getDate().toString().length === 1
+          ? "0" + a.getDate().toString()
+          : a.getDate().toString();
+      let hours =
+        a.getHours().toString().length === 1
+          ? "0" + a.getHours().toString()
+          : a.getHours().toString();
+      let minutes =
+        a.getMinutes().toString().length === 1
+          ? "0" + a.getMinutes().toString()
+          : a.getMinutes().toString();
+      return year + month + day + hours + minutes;
+    },
     addFuel() {
       firebase
         .firestore()
@@ -155,6 +181,7 @@ export default {
     },
   },
   beforeMount() {
+    this.date = this.todayDate();
     this.useruid = localStorage.getItem("userid");
     this.carid = this.$route.params.id;
     firebase
