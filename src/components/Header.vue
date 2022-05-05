@@ -2,7 +2,9 @@
   <header>
     <div class="wrapper">
       <div class="nav">
-        <img src="../assets/img/Fuel_Logo.png" alt="Company logo" />
+        <router-link to="/"
+          ><img src="../assets/img/Fuel_Logo.png" alt="Company logo"
+        /></router-link>
 
         <nav>
           <div v-if="userAuth">
@@ -37,10 +39,6 @@
           </div>
         </nav>
       </div>
-      <!-- <div class="page-title">
-        <h1 class="title">> {{ this.$route.name }}</h1>
-        <img src="../assets/img/login.svg" alt="Driver" />
-      </div> -->
     </div>
   </header>
 </template>
@@ -97,7 +95,7 @@ export default {
   height: 40px;
 }
 
-.nav a {
+nav a {
   text-decoration: none;
   color: rgb(0, 0, 0);
   margin-right: 5px;
@@ -106,7 +104,7 @@ export default {
   padding: 4px;
   border: 2px dotted rgba(0, 0, 0, 0);
 }
-.nav a:hover {
+nav a:hover {
   text-decoration: none;
   border-radius: 8px;
   box-sizing: border-box;
@@ -114,7 +112,7 @@ export default {
   background-color: rgb(67, 193, 224);
 }
 
-.nav a:last-child {
+nav a:last-child {
   margin-right: 0px;
 }
 
@@ -127,28 +125,5 @@ nav div {
 nav a {
   display: flex;
   align-items: center;
-}
-
-.wrapper .page-title {
-  height: 200px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.page-title {
-  /* background-color: rgba(147, 224, 243, 1); */
-
-  justify-content: space-between;
-}
-h1 {
-  text-transform: uppercase;
-  font-weight: bolder;
-  text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.page-title img {
-  width: 20%;
-  /* opacity: 50%; */
 }
 </style>
