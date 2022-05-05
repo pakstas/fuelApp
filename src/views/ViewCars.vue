@@ -111,12 +111,6 @@ export default {
   padding: 10px;
   display: flex;
   align-items: center;
-
-  /* background-color: rgba(147, 224, 243, 1); */
-}
-.cars-page {
-  /* background-color: rgba(255, 255, 255, 0.75); */
-  min-height: calc(100vh - 309px);
 }
 
 h1 {
