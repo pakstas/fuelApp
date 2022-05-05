@@ -42,6 +42,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "addcar" */ "../views/AddCar.vue"),
   },
+  {
+    path: "/viewfuel/:id",
+    name: "View Fuel",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "viewfuel" */ "../views/ViewFuel.vue"),
+  },
+  {
+    path: "/addfuel/:id",
+    name: "Add Fuel",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "addfuel" */ "../views/AddFuel.vue"),
+  },
 ];
 
 const router = new VueRouter({
