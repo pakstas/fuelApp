@@ -1,6 +1,6 @@
 <template>
-  <div class="columns is-multiline">
-    <div v-if="cars.length !== 0">
+  <div>
+    <div class="columns is-multiline" v-if="cars.length !== 0">
       <div
         class="column is-one-third-desktop is-half-tablet"
         v-for="car in cars"
@@ -8,25 +8,25 @@
       >
         <div class="card">
           <div class="card-content car-title">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4">
-                  {{
-                    car.brand.toUpperCase().slice(0, 1) +
-                    car.brand.toLowerCase().slice(1) +
-                    " " +
-                    car.model.toUpperCase().slice(0, 1) +
-                    car.model.toLowerCase().slice(1)
-                  }}
-                </p>
-                <div class="tags are-large">
-                  <span class="tag">{{ car.year }}</span>
-                  <span class="tag">{{
-                    car.fueltype.toUpperCase().slice(0, 1) +
-                    car.fueltype.toLowerCase().slice(1)
-                  }}</span>
-                </div>
+            <div class="media-content">
+              <!-- <div class="media-content"> -->
+              <p class="title is-4">
+                {{
+                  car.brand.toUpperCase().slice(0, 1) +
+                  car.brand.toLowerCase().slice(1) +
+                  " " +
+                  car.model.toUpperCase().slice(0, 1) +
+                  car.model.toLowerCase().slice(1)
+                }}
+              </p>
+              <div class="tags are-large">
+                <span class="tag">{{ car.year }}</span>
+                <span class="tag">{{
+                  car.fueltype.toUpperCase().slice(0, 1) +
+                  car.fueltype.toLowerCase().slice(1)
+                }}</span>
               </div>
+              <!-- </div> -->
             </div>
           </div>
 
@@ -38,17 +38,17 @@
 
           <footer class="card-footer">
             <router-link :to="'/viewfuel/' + car.id" class="card-footer-item"
-              >Fuel Log</router-link
+              ><i class="fas fa-pull-left fa-gas-pump"></i> Fuel
+              Log</router-link
             >
             <router-link :to="'/editCar/' + car.id" class="card-footer-item"
-              >Edit Car</router-link
+              ><i class="fas fa-pull-left fa-edit"></i> Edit Car</router-link
             >
           </footer>
         </div>
       </div>
     </div>
-
-    <div v-else>
+    <div v-if="cars.length === 0 && carsImported">
       <div class="addcar-rows">
         <span>You haven't added any cars, please start by adding one.</span>
         <router-link to="/addcar"
@@ -70,13 +70,13 @@ export default {
   data() {
     return {
       cars: [],
+      carsImported: false,
       useruid: "",
     };
   },
   methods: {},
   beforeMount() {
     this.useruid = localStorage.getItem("userid");
-
     firebase
       .firestore()
       .collection("users")
@@ -95,8 +95,10 @@ export default {
           });
         })
       )
+      .then(() => (this.carsImported = true))
       .catch((error) => console.log(error));
   },
+  computed: {},
 };
 </script>
 
@@ -110,12 +112,20 @@ div > .card {
   border-radius: 10px;
 }
 
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .columns:last-child {
   margin-bottom: 0px;
 }
 
-.card-content > div.content {
-  margin-bottom: 0px;
+.card-footer > a {
+  color: rgb(68, 68, 68);
+}
+.card-footer > a:hover {
+  color: black;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .addcar-rows {
@@ -125,5 +135,11 @@ div > .card {
 }
 .addcar-rows > span {
   margin-bottom: 32px;
+}
+
+@media screen and (max-width: 768px) {
+  .media-content {
+    height: 100px;
+  }
 }
 </style>

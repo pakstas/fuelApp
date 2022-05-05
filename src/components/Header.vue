@@ -5,15 +5,35 @@
         <img src="../assets/img/Fuel_Logo.png" alt="Company logo" />
 
         <nav>
-          <span v-if="userAuth">
-            <router-link to="/addcar">Add Car</router-link>
-            <router-link to="/">View Cars</router-link>
-            <a v-on:click="signOut()">Sign Out {{ "(" + email + ")" }}</a>
-          </span>
-          <span v-else>
-            <router-link to="/register">Register</router-link>
-            <router-link to="/login">Login</router-link>
-          </span>
+          <div v-if="userAuth">
+            <router-link to="/addcar"
+              ><i class="fas fa-plus fa-pull-left nav-link-icon"></i> Add
+              Car</router-link
+            >
+
+            <router-link to="/"
+              ><i class="fas fa-car fa-pull-left nav-link-icon"></i> View
+              Cars</router-link
+            >
+
+            <a v-on:click="signOut()"
+              ><i class="fas fa-sign-out fa-pull-left nav-link-icon"></i> Sign
+              Out {{ "(" + email + ")" }}</a
+            >
+          </div>
+          <div v-else>
+            <span>
+              <router-link to="/register"
+                ><i class="fas fa-user-plus nav-link-icon"></i
+                >Register</router-link
+              >
+            </span>
+            <span
+              ><router-link to="/login"
+                ><i class="fas fa-user nav-link-icon"></i>Login</router-link
+              ></span
+            >
+          </div>
         </nav>
       </div>
       <div class="page-title">
@@ -69,7 +89,6 @@ export default {
   justify-content: space-between;
   padding: 5px;
   background: rgb(147, 224, 243);
-  border-radius: 0px 0px 5px 5px;
 }
 
 .nav img {
@@ -81,18 +100,31 @@ export default {
   color: rgb(0, 0, 0);
   margin-right: 5px;
   margin-left: 10px;
+  box-sizing: border-box;
+  padding: 4px;
+  border: 2px dotted rgba(0, 0, 0, 0);
 }
 .nav a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border: 2px solid rgb(67, 193, 224);
+  background-color: rgb(67, 193, 224);
 }
 
 .nav a:last-child {
   margin-right: 0px;
 }
 
-nav {
+nav div {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  height: 100%;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
 }
 
 .wrapper .page-title {
