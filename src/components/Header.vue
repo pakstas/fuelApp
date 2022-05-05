@@ -24,21 +24,23 @@
           <div v-else>
             <span>
               <router-link to="/register"
-                ><i class="fas fa-user-plus nav-link-icon"></i
+                ><i class="fas fa-user-plus fa-pull-left nav-link-icon"></i
                 >Register</router-link
               >
             </span>
             <span
               ><router-link to="/login"
-                ><i class="fas fa-user nav-link-icon"></i>Login</router-link
+                ><i class="fas fa-user fa-pull-left nav-link-icon"></i
+                >Login</router-link
               ></span
             >
           </div>
         </nav>
       </div>
-      <div class="page-title">
-        <h1 class="title">{{ this.$route.name }}</h1>
-      </div>
+      <!-- <div class="page-title">
+        <h1 class="title">> {{ this.$route.name }}</h1>
+        <img src="../assets/img/login.svg" alt="Driver" />
+      </div> -->
     </div>
   </header>
 </template>
@@ -87,7 +89,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
+  padding: 10px;
   background: rgb(147, 224, 243);
 }
 
@@ -129,8 +131,24 @@ nav a {
 
 .wrapper .page-title {
   height: 200px;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
+}
+
+.page-title {
+  /* background-color: rgba(147, 224, 243, 1); */
+
+  justify-content: space-between;
+}
+h1 {
+  text-transform: uppercase;
+  font-weight: bolder;
+  text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.page-title img {
+  width: 20%;
+  /* opacity: 50%; */
 }
 </style>
