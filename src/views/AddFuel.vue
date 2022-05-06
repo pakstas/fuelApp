@@ -231,5 +231,6 @@ form {
 .add-fuel {
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 32px;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="page-title">
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
-    <div :class="load" class="columns is-multiline">
+    <div :class="load" class="columns is-multiline fuel-page">
       <div class="column is-full">
         <div class="card">
           <div class="card-content car-title">
@@ -243,5 +243,9 @@ div .card {
 
 .columns:last-child {
   margin-bottom: 0px;
+}
+
+.fuel-page {
+  padding-bottom: 32px;
 }
 </style>

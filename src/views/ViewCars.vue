@@ -44,7 +44,7 @@
               ><i class="fas fa-pull-left fa-gas-pump"></i> Fuel
               Log</router-link
             >
-            <router-link :to="'/editCar/' + car.id" class="card-footer-item"
+            <router-link :to="'/editcar/' + car.id" class="card-footer-item"
               ><i class="fas fa-pull-left fa-edit"></i> Edit Car</router-link
             >
           </footer>
@@ -150,7 +150,11 @@ div > .card {
   align-items: center;
 }
 .addcar-rows > span {
-  margin-bottom: 32px;
+  padding-bottom: 32px;
+}
+
+.cars-page {
+  padding-bottom: 32px;
 }
 
 @media screen and (max-width: 768px) {

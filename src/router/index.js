@@ -43,6 +43,15 @@ const routes = [
       import(/* webpackChunkName: "addcar" */ "../views/AddCar.vue"),
   },
   {
+    path: "/editcar/:id",
+    name: "Edit Car",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "editcar" */ "../views/EditCar.vue"),
+  },
+  {
     path: "/viewfuel/:id",
     name: "View Fuel",
     meta: {

@@ -3,9 +3,9 @@
     <div class="page-title">
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
-    <div class="add-car">
+    <div class="edit-car">
       <div class="column is-one-third-desktop is-half-tablet">
-        <form v-on:submit.prevent="addCar()">
+        <form v-on:submit.prevent="editCar()">
           <div class="field">
             <label class="label">Car Brand</label>
             <div class="control">
@@ -73,7 +73,7 @@
           </div>
 
           <div class="control">
-            <button class="button is-dark" type="submit">Add Car!</button>
+            <button class="button is-dark" type="submit">Save Changes</button>
           </div>
         </form>
       </div>
@@ -87,7 +87,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 export default {
-  name: "AddCar",
+  name: "EditCar",
   data() {
     return {
       fueltype: "petrol",
@@ -95,16 +95,19 @@ export default {
       model: "",
       image: "",
       year: "",
+      carid: "",
+      useruid: "",
     };
   },
   methods: {
-    addCar() {
+    editCar() {
       firebase
         .firestore()
         .collection("users")
         .doc(firebase.auth().currentUser.uid)
         .collection("cars")
-        .add({
+        .doc(this.carid)
+        .update({
           brand: this.brand,
           model: this.model,
           year: Number(this.year),
@@ -116,6 +119,25 @@ export default {
         })
         .catch((error) => alert(error));
     },
+  },
+  beforeMount() {
+    this.useruid = localStorage.getItem("userid");
+    this.carid = this.$route.params.id;
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(this.useruid)
+      .collection("cars")
+      .doc(this.carid)
+      .get()
+      .then((snapshot) => {
+        this.brand = snapshot.data().brand;
+        this.fueltype = snapshot.data().fueltype;
+        this.image = snapshot.data().image;
+        this.model = snapshot.data().model;
+        this.year = snapshot.data().year;
+      })
+      .catch((error) => console.log(error));
   },
 };
 </script>
@@ -138,7 +160,7 @@ form {
   padding: 10px;
   border-radius: 5px;
 }
-.add-car {
+.edit-car {
   display: flex;
   justify-content: space-evenly;
   padding-bottom: 32px;
