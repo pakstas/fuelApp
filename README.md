@@ -1,4 +1,4 @@
-# :movie_camera: Fuel Consumption App
+# :car: Fuel Consumption App
 
 
 ## :globe_with_meridians: Demo link:
