@@ -34,6 +34,12 @@ body {
 .container {
   width: 80%;
 }
+
+@media screen and (max-width: 560px) {
+  .container {
+    min-width: 360px;
+  }
+}
 .container > .main {
   min-height: calc(100vh - 50px);
   width: 100%;
