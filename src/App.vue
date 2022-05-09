@@ -41,7 +41,7 @@ body {
   }
 }
 .container > .main {
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   width: 100%;
   background: rgb(255, 255, 255, 0.65);
   background-image: url(./assets/img/waves.svg);

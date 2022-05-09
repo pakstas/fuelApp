@@ -122,7 +122,7 @@ export default {
 }
 
 @media screen and (max-width: 560px) {
-  .login {
+  .form-block {
     width: 320px;
   }
 }
