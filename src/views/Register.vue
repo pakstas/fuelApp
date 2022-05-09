@@ -1,6 +1,6 @@
 <template>
   <div class="register-page">
-    <div class="register">
+    <div class="form-block">
       <div class="title">
         <h2>Register</h2>
       </div>
@@ -99,9 +99,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 75vh;
+  min-height: calc(100vh - 100px);
 }
-.register {
+.form-block {
   width: 360px;
   margin: 5vh auto;
   background: rgba(255, 255, 255, 0.55);
@@ -121,7 +121,7 @@ export default {
 }
 
 @media screen and (max-width: 560px) {
-  .register {
+  .form-block {
     width: 320px;
   }
 }

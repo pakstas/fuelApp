@@ -4,57 +4,67 @@
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
     <div class="add-car">
-      <div class="column is-one-third-desktop is-half-tablet">
+      <div
+        class="column is-half-desktop is-two-thirds-tablet is-four-fifths-mobile"
+      >
         <form v-on:submit.prevent="addCar()">
           <div class="field">
-            <label class="label">Car Brand</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                v-model="brand"
-                placeholder="e.g. Audi"
-                required
-              />
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Car Brand</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="brand"
+                    placeholder="e.g. Audi"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Car model</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    v-model="model"
+                    placeholder="e.g. A6"
+                    required
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Car model</label>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                v-model="model"
-                placeholder="e.g. A6"
-                required
-              />
-            </div>
-          </div>
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Car year</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    v-model="year"
+                    min="1900"
+                    max="2050"
+                    placeholder="e.g. 1997"
+                    required
+                  />
+                </div>
+              </div>
 
-          <div class="field">
-            <label class="label">Car year</label>
-            <div class="control">
-              <input
-                class="input"
-                type="number"
-                v-model="year"
-                min="1900"
-                max="2050"
-                placeholder="e.g. 1997"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Fuel type</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="fueltype">
-                  <option value="diesel">Diesel</option>
-                  <option value="petrol" selected>Petrol</option>
-                </select>
+              <div class="field">
+                <label class="label">Fuel type</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select v-model="fueltype">
+                      <option value="diesel">Diesel</option>
+                      <option value="petrol" selected>Petrol</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

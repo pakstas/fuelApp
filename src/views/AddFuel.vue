@@ -5,7 +5,9 @@
     </div>
 
     <div class="add-fuel">
-      <div class="column is-one-third-desktop is-half-tablet">
+      <div
+        class="column is-half-desktop is-two-thirds-tablet is-four-fifths-mobile"
+      >
         <form v-on:submit.prevent="addFuel()">
           <div class="field">
             <label class="label">Date</label>
@@ -32,75 +34,84 @@
           </div>
 
           <div class="field">
-            <label class="label">Odometer</label>
-            <div class="field has-addons">
-              <div class="control">
-                <input
-                  class="input"
-                  type="number"
-                  v-model="odometer"
-                  placeholder="e.g. 2500"
-                  min="0"
-                  required
-                />
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Odometer</label>
+                <div class="field has-addons">
+                  <div class="control is-expanded">
+                    <input
+                      class="input"
+                      type="number"
+                      v-model="odometer"
+                      placeholder="e.g. 2500"
+                      min="0"
+                      required
+                    />
+                  </div>
+                  <div class="control">
+                    <a class="button is-static">km</a>
+                  </div>
+                </div>
+                <p class="help">
+                  Last odometer:
+                  {{ lastlog.length !== 0 ? lastlog[0].km : "0" }} km
+                </p>
               </div>
-              <div class="control">
-                <a class="button is-static">km</a>
-              </div>
-            </div>
-            <p class="help">
-              Last odometer: {{ lastlog.length !== 0 ? lastlog[0].km : "0" }} km
-            </p>
-          </div>
 
-          <div class="field">
-            <label class="label">Fuel Quantity</label>
-            <div class="field has-addons">
-              <div class="control">
-                <input
-                  class="input"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  v-model="fuelqty"
-                  placeholder="e.g. 42.24"
-                  required
-                />
-              </div>
-              <div class="control">
-                <a class="button is-static">ltr</a>
+              <div class="field">
+                <label class="label">Filled tank</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select v-model="tank" required>
+                      <option value="full">Full</option>
+                      <option value="partial">Part full</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Fuel Price</label>
-            <div class="field has-addons">
-              <div class="control">
-                <input
-                  class="input"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  v-model="price"
-                  placeholder="e.g. 42.24"
-                  required
-                />
+            <div class="field-body">
+              <div class="field">
+                <label class="label">Fuel Quantity</label>
+                <div class="field has-addons">
+                  <div class="control is-expanded">
+                    <input
+                      class="input"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      v-model="fuelqty"
+                      placeholder="e.g. 42.24"
+                      required
+                    />
+                  </div>
+                  <div class="control">
+                    <a class="button is-static">ltr</a>
+                  </div>
+                </div>
               </div>
-              <div class="control">
-                <a class="button is-static">&euro;</a>
-              </div>
-            </div>
-          </div>
 
-          <div class="field">
-            <label class="label">Filled tank</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="tank" required>
-                  <option value="full">Full</option>
-                  <option value="partial">Part full</option>
-                </select>
+              <div class="field">
+                <label class="label">Fuel Price</label>
+                <div class="field has-addons">
+                  <div class="control is-expanded">
+                    <input
+                      class="input"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      v-model="price"
+                      placeholder="e.g. 42.24"
+                      required
+                    />
+                  </div>
+                  <div class="control">
+                    <a class="button is-static">&euro;</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

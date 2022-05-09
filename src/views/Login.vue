@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <div class="login">
+    <div class="form-block">
       <div class="title">
         <h2>Login</h2>
       </div>
@@ -99,11 +99,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 75vh;
+  min-height: calc(100vh - 100px);
 }
 
-.login {
+.form-block {
   width: 360px;
+  margin: 5vh auto;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 5px 5px 5px 5px;
 }

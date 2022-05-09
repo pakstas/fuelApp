@@ -37,11 +37,11 @@ body {
 
 @media screen and (max-width: 560px) {
   .container {
-    min-width: 360px;
+    min-width: 100%;
   }
 }
 .container > .main {
-  min-height: calc(100vh - 50px);
+  height: calc(100vh - 50px);
   width: 100%;
   background: rgb(255, 255, 255, 0.65);
   background-image: url(./assets/img/waves.svg);
