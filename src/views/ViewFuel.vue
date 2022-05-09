@@ -3,6 +3,15 @@
     <div class="page-title">
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
+    <div class="column is-full" v-if="error">
+      <Notification
+        v-on:close="error = false"
+        v-if="error"
+        :type="errorType"
+        :message="errorMessage"
+      />
+    </div>
+
     <div :class="load" class="columns is-multiline fuel-page">
       <div class="column is-full">
         <div class="card">
@@ -39,6 +48,7 @@
         <div class="card">
           <div class="card-content">
             <h2 class="subtitle">Fuel log</h2>
+
             <button
               class="button is-dark"
               v-on:click="
@@ -99,10 +109,11 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import Notification from "../components/Notification";
 
 export default {
   name: "ViewFuel",
-  components: {},
+  components: { Notification },
   data() {
     return {
       useruid: "",
@@ -112,6 +123,10 @@ export default {
       allfuel: [],
       allfuelSort: [],
       fuelDisplay: false,
+      error: false,
+      errorMessage: "",
+      errorType: "",
+      loading: false,
     };
   },
   methods: {
@@ -166,10 +181,18 @@ export default {
         .doc(item)
         .delete()
         .then(() => {
-          alert("Fuel deleted");
+          this.error = true;
+          this.errorType = "is-danger";
+          this.errorMessage = "Fuel log entry was successfully removed.";
+          this.loading = false;
           this.allfuelSort = this.allfuelSort.filter((a) => a.id !== item);
         })
-        .catch((error) => alert(error));
+        .catch((error) => {
+          this.error = true;
+          this.errorType = "is-danger";
+          this.errorMessage = error.message;
+          this.loading = false;
+        });
     },
   },
   beforeMount() {

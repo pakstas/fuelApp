@@ -4,6 +4,14 @@
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
     <div class="add-car">
+      <div class="column is-full" v-if="error">
+        <Notification
+          v-on:close="error = false"
+          v-if="error"
+          :type="errorType"
+          :message="errorMessage"
+        />
+      </div>
       <div
         class="column is-half-desktop is-two-thirds-tablet is-four-fifths-mobile"
       >
@@ -83,7 +91,13 @@
           </div>
 
           <div class="control">
-            <button class="button is-dark" type="submit">Add Car!</button>
+            <button
+              class="button is-dark"
+              :class="loading && 'is-loading'"
+              type="submit"
+            >
+              Add Car!
+            </button>
           </div>
         </form>
       </div>
@@ -95,9 +109,11 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import Notification from "../components/Notification";
 
 export default {
   name: "AddCar",
+  components: { Notification },
   data() {
     return {
       fueltype: "petrol",
@@ -105,10 +121,15 @@ export default {
       model: "",
       image: "",
       year: "",
+      error: false,
+      errorMessage: "",
+      errorType: "",
+      loading: false,
     };
   },
   methods: {
     addCar() {
+      this.loading = true;
       firebase
         .firestore()
         .collection("users")
@@ -122,9 +143,15 @@ export default {
           image: this.image,
         })
         .then(() => {
+          this.loading = false;
           this.$router.push("/");
         })
-        .catch((error) => alert(error));
+        .catch((error) => {
+          this.error = true;
+          this.errorMessage = error.message;
+          this.errorType = "is-danger";
+          this.loading = false;
+        });
     },
   },
 };
