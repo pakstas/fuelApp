@@ -5,6 +5,14 @@
     </div>
 
     <div class="add-fuel">
+      <div class="column is-full" v-if="error">
+        <Notification
+          v-on:close="error = false"
+          v-if="error"
+          :type="errorType"
+          :message="errorMessage"
+        />
+      </div>
       <div
         class="column is-half-desktop is-two-thirds-tablet is-four-fifths-mobile"
       >
@@ -117,7 +125,13 @@
           </div>
 
           <div class="control">
-            <button class="button is-dark" type="submit">Add Fuel!</button>
+            <button
+              class="button is-dark"
+              :class="loading && 'is-loading'"
+              type="submit"
+            >
+              Add Fuel!
+            </button>
           </div>
         </form>
       </div>
@@ -129,9 +143,11 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import Notification from "../components/Notification.vue";
 
 export default {
   name: "AddFuel",
+  components: { Notification },
   data() {
     return {
       useruid: "",
@@ -142,6 +158,10 @@ export default {
       price: "",
       tank: "",
       lastlog: [],
+      error: false,
+      errorMessage: "",
+      errorType: "",
+      loading: false,
     };
   },
   methods: {
@@ -170,6 +190,7 @@ export default {
       return year + month + day + hours + minutes;
     },
     addFuel() {
+      this.loading = true;
       firebase
         .firestore()
         .collection("users")
@@ -185,10 +206,15 @@ export default {
           odometer: Number(this.odometer).toFixed(0),
         })
         .then(() => {
-          alert("Fuel added");
+          this.loading = false;
           this.$router.push("/viewfuel/" + this.carid);
         })
-        .catch((error) => alert(error));
+        .catch((error) => {
+          this.error = true;
+          this.errorType = "is-danger";
+          this.errorMessage = error.message;
+          this.loading = false;
+        });
     },
   },
   beforeMount() {
