@@ -103,7 +103,7 @@ export default {
 }
 
 .login {
-  width: 350px;
+  width: 360px;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 5px 5px 5px 5px;
 }
@@ -118,5 +118,11 @@ export default {
 
 .form {
   padding: 5px 20px 20px 20px;
+}
+
+@media screen and (max-width: 560px) {
+  .login {
+    width: 320px;
+  }
 }
 </style>

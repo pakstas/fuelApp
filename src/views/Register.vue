@@ -102,7 +102,7 @@ export default {
   min-height: 75vh;
 }
 .register {
-  width: 350px;
+  width: 360px;
   margin: 5vh auto;
   background: rgba(255, 255, 255, 0.55);
   border-radius: 5px 5px 5px 5px;
@@ -118,5 +118,11 @@ export default {
 
 .form {
   padding: 5px 20px 20px 20px;
+}
+
+@media screen and (max-width: 560px) {
+  .register {
+    width: 320px;
+  }
 }
 </style>
