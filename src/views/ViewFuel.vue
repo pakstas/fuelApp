@@ -248,4 +248,8 @@ div .card {
 .fuel-page {
   padding-bottom: 32px;
 }
+
+.media-content {
+  min-height: 100px;
+}
 </style>
