@@ -2,7 +2,7 @@
 
 
 ## :globe_with_meridians: Demo link:
-You can check a live demo on [fuelapp.pakstas.com](http://fuelapp.pakstas.com)
+You can check a live demo on [fuelapp.pakstas.com](http://www.fuelapp.pakstas.com)
 
 
 ## :file_folder: Table of Content: 
