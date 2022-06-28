@@ -3,8 +3,35 @@
     <div class="page-title">
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
+    <div class="cars-search">
+      <div
+        class="field has-addons has-addons-centered"
+        v-if="carsData.length !== 0"
+      >
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Find a car by name"
+            v-model="searchQuery"
+            v-on:keyup.enter="searchCar(searchQuery)"
+          />
+        </div>
+        <div class="control">
+          <a class="button is-dark" v-on:click="searchCar(searchQuery)">
+            Search
+          </a>
+        </div>
+      </div>
+    </div>
+
     <div class="section" v-if="cars.length !== 0">
-      <div class="card" v-for="car in cars" :key="car.id">
+      <div
+        class="card"
+        v-for="car in cars"
+        :key="car.id"
+        v-show="cars.indexOf(car) < carsBreakpoint"
+      >
         <div class="card-content car-title">
           <div class="media-content">
             <!-- <div class="media-content"> -->
@@ -30,7 +57,14 @@
 
         <div class="card-image">
           <figure class="image is-4by3">
-            <img :src="car.image" :alt="car.brand" />
+            <img
+              :src="
+                car.image
+                  ? car.image
+                  : 'https://images.unsplash.com/photo-1498887960847-2a5e46312788?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3869&q=80'
+              "
+              :alt="car.brand"
+            />
           </figure>
         </div>
 
@@ -44,6 +78,17 @@
         </footer>
       </div>
     </div>
+
+    <div class="show-more" v-if="carsBreakpoint < cars.length">
+      <button
+        class="button is-dark"
+        type="button"
+        v-on:click="carsBreakpoint += 6"
+      >
+        Show more cars..
+      </button>
+    </div>
+
     <div v-if="cars.length === 0 && carsImported">
       <div class="addcar-rows">
         <span>You haven't added any cars, please start by adding one.</span>
@@ -65,12 +110,24 @@ export default {
   components: {},
   data() {
     return {
+      carsData: [],
       cars: [],
       carsImported: false,
       useruid: "",
+      carsBreakpoint: 6,
+      searchQuery: "",
     };
   },
-  methods: {},
+  methods: {
+    searchCar(search) {
+      let searchLowerCase = search.toLowerCase();
+      this.cars = this.carsData.filter(
+        (car) =>
+          car.brand.toLowerCase().search(searchLowerCase) === 0 ||
+          car.model.toLowerCase().search(searchLowerCase) === 0
+      );
+    },
+  },
   beforeMount() {
     this.useruid = localStorage.getItem("userid");
     firebase
@@ -81,7 +138,7 @@ export default {
       .get()
       .then((snapshot) =>
         snapshot.docs.forEach((doc) => {
-          this.cars.push({
+          this.carsData.push({
             id: doc.id,
             image: doc.data().image,
             brand: doc.data().brand,
@@ -91,7 +148,10 @@ export default {
           });
         })
       )
-      .then(() => (this.carsImported = true))
+      .then(() => {
+        this.carsImported = true;
+        this.cars = this.carsData;
+      })
       .catch((error) => console.log(error));
   },
   computed: {},
@@ -121,8 +181,9 @@ h1 {
 }
 
 .card {
-  border-radius: 10px;
-  margin-top: 0.75rem;
+  border-radius: 0.75rem;
+  margin-bottom: 2rem;
+  transition: 0.25s;
 }
 
 .card:hover {
@@ -135,6 +196,7 @@ h1 {
 
 .card-footer > a {
   color: rgb(68, 68, 68);
+  transition: 0.25s;
 }
 .card-footer > a:hover {
   color: black;
@@ -147,7 +209,7 @@ h1 {
   align-items: center;
 }
 .addcar-rows > span {
-  padding-bottom: 32px;
+  padding-bottom: 2rem;
 }
 
 .section {
@@ -155,7 +217,26 @@ h1 {
 }
 
 .cars-page {
-  padding-bottom: 32px;
+  padding-bottom: 2rem;
+}
+
+.show-more {
+  text-align: center;
+  padding: 0rem 2rem 2rem;
+}
+
+.cars-search {
+  margin-bottom: 2rem;
+}
+
+.cars-search input,
+input:hover {
+  border: none;
+  outline: none;
+}
+
+.cars-search input:focus {
+  box-shadow: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -169,13 +250,13 @@ h1 {
 
 @media screen and (min-width: 769px) {
   .card {
-    width: calc((100% - 0.75rem) / 2);
+    width: calc((100% - 2rem) / 2);
   }
 }
 
 @media screen and (min-width: 1081px) {
   .card {
-    width: calc((100% - 1.5rem) / 3);
+    width: calc((100% - 4rem) / 3);
   }
 }
 </style>
