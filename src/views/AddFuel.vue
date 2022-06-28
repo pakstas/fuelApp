@@ -173,8 +173,8 @@ export default {
       let year = a.getFullYear().toString();
       let month =
         a.getMonth().toString().length === 1
-          ? "0" + a.getMonth().toString()
-          : a.getMonth().toString();
+          ? "0" + (a.getMonth() + 1).toString()
+          : (a.getMonth() + 1).toString();
       let day =
         a.getDate().toString().length === 1
           ? "0" + a.getDate().toString()
