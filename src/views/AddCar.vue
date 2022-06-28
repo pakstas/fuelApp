@@ -85,7 +85,6 @@
                 type="url"
                 v-model="image"
                 placeholder="e.g. http://www.google.lt/images/audi.jpg"
-                required
               />
             </div>
           </div>
