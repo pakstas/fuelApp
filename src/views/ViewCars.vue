@@ -3,52 +3,45 @@
     <div class="page-title">
       <h1 class="title">> {{ this.$route.name }}</h1>
     </div>
-    <div class="columns is-multiline cars-page" v-if="cars.length !== 0">
-      <div
-        class="column is-one-third-desktop is-half-tablet"
-        v-for="car in cars"
-        :key="car.id"
-      >
-        <div class="card">
-          <div class="card-content car-title">
-            <div class="media-content">
-              <!-- <div class="media-content"> -->
-              <p class="title is-4">
-                {{
-                  car.brand.toUpperCase().slice(0, 1) +
-                  car.brand.toLowerCase().slice(1) +
-                  " " +
-                  car.model.toUpperCase().slice(0, 1) +
-                  car.model.toLowerCase().slice(1)
-                }}
-              </p>
-              <div class="tags are-large">
-                <span class="tag">{{ car.year }}</span>
-                <span class="tag">{{
-                  car.fueltype.toUpperCase().slice(0, 1) +
-                  car.fueltype.toLowerCase().slice(1)
-                }}</span>
-              </div>
-              <!-- </div> -->
+    <div class="section" v-if="cars.length !== 0">
+      <div class="card" v-for="car in cars" :key="car.id">
+        <div class="card-content car-title">
+          <div class="media-content">
+            <!-- <div class="media-content"> -->
+            <p class="title is-4">
+              {{
+                car.brand.toUpperCase().slice(0, 1) +
+                car.brand.toLowerCase().slice(1) +
+                " " +
+                car.model.toUpperCase().slice(0, 1) +
+                car.model.toLowerCase().slice(1)
+              }}
+            </p>
+            <div class="tags are-large">
+              <span class="tag">{{ car.year }}</span>
+              <span class="tag">{{
+                car.fueltype.toUpperCase().slice(0, 1) +
+                car.fueltype.toLowerCase().slice(1)
+              }}</span>
             </div>
+            <!-- </div> -->
           </div>
-
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img :src="car.image" :alt="car.brand" />
-            </figure>
-          </div>
-
-          <footer class="card-footer">
-            <router-link :to="'/viewfuel/' + car.id" class="card-footer-item"
-              ><i class="fas fa-pull-left fa-gas-pump"></i> Fuel
-              Log</router-link
-            >
-            <router-link :to="'/editcar/' + car.id" class="card-footer-item"
-              ><i class="fas fa-pull-left fa-edit"></i> Edit Car</router-link
-            >
-          </footer>
         </div>
+
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img :src="car.image" :alt="car.brand" />
+          </figure>
+        </div>
+
+        <footer class="card-footer">
+          <router-link :to="'/viewfuel/' + car.id" class="card-footer-item"
+            ><i class="fas fa-pull-left fa-gas-pump"></i> Fuel Log</router-link
+          >
+          <router-link :to="'/editcar/' + car.id" class="card-footer-item"
+            ><i class="fas fa-pull-left fa-edit"></i> Edit Car</router-link
+          >
+        </footer>
       </div>
     </div>
     <div v-if="cars.length === 0 && carsImported">
@@ -119,21 +112,25 @@ h1 {
   text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.columns {
-  justify-content: space-evenly;
+.section {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 0px;
 }
 
-div > .card {
+.card {
   border-radius: 10px;
+  margin-top: 0.75rem;
 }
 
 .card:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.columns:last-child {
-  margin-bottom: 0px;
+.card:hover > .delete-button {
+  display: block;
 }
 
 .card-footer > a {
@@ -153,6 +150,10 @@ div > .card {
   padding-bottom: 32px;
 }
 
+.section {
+  padding: 0.75rem;
+}
+
 .cars-page {
   padding-bottom: 32px;
 }
@@ -160,6 +161,21 @@ div > .card {
 @media screen and (max-width: 768px) {
   .media-content {
     height: 100px;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .card {
+    width: calc((100% - 0.75rem) / 2);
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  .card {
+    width: calc((100% - 1.5rem) / 3);
   }
 }
 </style>
