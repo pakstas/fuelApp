@@ -84,7 +84,6 @@ export default {
   methods: {
     signOut() {
       firebase.auth().signOut();
-      this.$router.push("/login");
       this.userAuth = false;
       localStorage.removeItem("userid");
       this.uid = "";
