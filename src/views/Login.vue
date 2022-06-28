@@ -69,8 +69,8 @@ export default {
   components: { Notification },
   data() {
     return {
-      email: "",
-      password: "",
+      email: process.env.VUE_APP_DEMO_LOGIN_EMAIL,
+      password: process.env.VUE_APP_DEMO_LOGIN_PASSWORD,
       error: false,
       errorMessage: "",
       loading: false,
