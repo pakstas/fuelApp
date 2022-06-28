@@ -98,6 +98,14 @@
             >
               Save Changes
             </button>
+            <button
+              class="button is-danger"
+              :class="deleting && 'is-loading'"
+              v-on:click="deleteCar()"
+              type="button"
+            >
+              Delete Car
+            </button>
           </div>
         </form>
       </div>
@@ -127,6 +135,7 @@ export default {
       errorMessage: "",
       errorType: "",
       loading: false,
+      deleting: false,
     };
   },
   methods: {
@@ -154,6 +163,26 @@ export default {
           this.errorType = "is-danger";
           this.errorMessage = error.message;
           this.loading = false;
+        });
+    },
+    deleteCar() {
+      this.deleting = true;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .collection("cars")
+        .doc(this.carid)
+        .delete()
+        .then(() => {
+          this.deleting = false;
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          this.error = true;
+          this.errorType = "is-danger";
+          this.errorMessage = error.message;
+          this.deleting = false;
         });
     },
   },
@@ -206,5 +235,11 @@ form {
   display: flex;
   justify-content: space-evenly;
   padding-bottom: 32px;
+}
+
+.control {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>
