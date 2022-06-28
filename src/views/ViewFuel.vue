@@ -12,6 +12,15 @@
       />
     </div>
 
+    <div class="column is-full" v-if="informationTip">
+      <Notification
+        v-on:close="informationTip = false"
+        v-if="informationTip"
+        :type="tipBgColor"
+        :message="tipMessage"
+      />
+    </div>
+
     <div :class="load" class="columns is-multiline fuel-page">
       <div class="column is-full">
         <div class="card">
@@ -127,6 +136,10 @@ export default {
       errorMessage: "",
       errorType: "",
       loading: false,
+      informationTip: false,
+      tipMessage:
+        "In order to show fuel consumption average you must have at least 2 full tanks filled.",
+      tipBgColor: "is-warning",
     };
   },
   methods: {
@@ -155,8 +168,10 @@ export default {
         return result;
       } else if (sl === 1) {
         this.fuelDisplay = false;
+        this.informationTip = true;
       } else {
         this.fuelDisplay = false;
+        this.informationTip = true;
       }
     },
     getTrip(gid) {
