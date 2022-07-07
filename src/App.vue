@@ -24,10 +24,15 @@ export default {
 
 <style>
 body {
-  background-image: url("./assets/img/bg_car.jpg");
+  background-image: url("./assets/img/bg_car_small.jpg");
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
+}
+@media screen and (min-width: 1024px) {
+  body {
+    background-image: url("./assets/img/bg_car_medium.jpg");
+  }
 }
 </style>
 <style scoped>
