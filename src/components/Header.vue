@@ -70,6 +70,7 @@
 <script>
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+
 /* eslint-disable */
 export default {
   name: "Header",
