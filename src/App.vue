@@ -49,10 +49,5 @@ body {
   min-height: calc(100vh - 50px);
   width: 100%;
   background: rgb(255, 255, 255, 0.65);
-  background-image: url(./assets/img/waves.svg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* background-position: top left; */
 }
 </style>
